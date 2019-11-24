@@ -1,0 +1,34 @@
+/* 
+自定义全局样式
+scss类名，可自定义
+*/
+
+$brand-color: #357F8A;
+$breakpoint-small: 480px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 960px;
+$breakpoint-xlarge: 1220px;
+$breakpoint-mini-max: ($breakpoint-small - 1);
+$breakpoint-small-max: ($breakpoint-medium - 1);
+$breakpoint-medium-max: ($breakpoint-large - 1);
+$breakpoint-large-max: ($breakpoint-xlarge - 1);
+$sidebar-bg: rgb(6, 65, 83);
+$sidebar-color: #ffffff;
+$sidebar-active-color: #ffd04b;
+$sidebar-active-bg: rgb(11, 78, 105);
+$header-color: #f6f6f6;
+$header-bread-active-color: #ffffff;
+$header-bg: rgb(20, 120, 160);
+$main-bg: #fafafa;
+
+/* 自定义全局样式，通过color:var(--main-bg-color)使用 */
+
+:root {
+    --main-bg-color: coral;
+    --main-txt-color: blue;
+    --main-padding: 15px;
+}
+
+/* 定义的工具样式 */
+@import './elements/body.scss';
+@import './components/util.scss';
