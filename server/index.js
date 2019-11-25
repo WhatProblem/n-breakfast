@@ -1,14 +1,29 @@
 const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
-
+const router = require('koa-router')()
+const bodyParser = require('koa-bodyparser')
 const app = new Koa()
+
+app.use(bodyParser())
+router.get('/getTest', async (ctx) => {
+  ctx.body = JSON.stringify({ code: 200, data: { title: 'my ssr', common:ctx.headers } })
+})
+router.get('/getHome', async (ctx) => {
+  ctx.body = JSON.stringify({ code: 200, data: { title: 'my home ssr' } })
+})
+router.post('/postData', async (ctx) => {
+  console.log(ctx.request.body)
+  ctx.body = JSON.stringify({ code: 200, data: { title: 'my post ssr', common:ctx.headers,obj: ctx.request.body } })
+})
+app.use(router.routes(), router.allowedMethods())
+
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
 config.dev = app.env !== 'production'
 
-async function start () {
+async function start() {
   // Instantiate nuxt.js
   const nuxt = new Nuxt(config)
 

@@ -15,6 +15,9 @@
     "cross-env": "^5.2.0",
     "element-ui": "2.12.0",
     "koa": "^2.6.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-mysql": "^1.0.3",
+    "koa-router": "^7.4.0",
     "nuxt": "^2.10.2"
   },
   "devDependencies": {

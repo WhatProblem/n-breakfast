@@ -26,4 +26,4 @@ npm run start
   - [x] Axios
   - [x] Element-ui
   
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+详情请查看官方文档 [Nuxt.js docs](https://nuxtjs.org).

@@ -7,7 +7,10 @@
         </el-aside>
         <el-container>
           <el-header height="90px">
-            <div class="header">Header</div>
+            <div class="header">
+              Header
+              <span>服务端渲染数据：{{title}}</span>
+            </div>
             <div class="bread">
               <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -34,6 +37,11 @@ export default {
   components: {
     Logo,
     Navbar
+  },
+  async asyncData({ params,$axios }) {
+    const { data } = await $axios.$get('/getTest');
+    console.log(data)
+    return { title: data.title };
   }
 };
 </script>

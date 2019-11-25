@@ -4,7 +4,7 @@
       <el-card class="box-card">
         <div slot="header" class="clearfix">
           <span>卡片名称</span>
-          <el-button type="text" style="float: right; padding: 3px 0" icon="el-icon-document-add" @click="dialogFormVisible = true">新增</el-button>
+          <el-button type="text" style="float: right; padding: 3px 0" icon="el-icon-document-add" @click="add()">新增</el-button>
         </div>
         <div v-for="o in 4" :key="o" class="text item">{{'列表内容 ' + o }}</div>
       </el-card>
@@ -72,6 +72,14 @@ export default {
       },
       formLabelWidth: "120px"
     };
+  },
+  methods: {
+    add() {
+      this.dialogFormVisible = true
+      this.$axios.get('/getTest').then(res=>{
+        console.log(res)
+      })
+    }
   }
 };
 </script>
