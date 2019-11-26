@@ -1,21 +1,11 @@
 const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
-const router = require('koa-router')()
+const router = require('./mvc/routes')
 const bodyParser = require('koa-bodyparser')
 const app = new Koa()
 
 app.use(bodyParser())
-router.get('/getTest', async (ctx) => {
-  ctx.body = JSON.stringify({ code: 200, data: { title: 'my ssr', common:ctx.headers } })
-})
-router.get('/getHome', async (ctx) => {
-  ctx.body = JSON.stringify({ code: 200, data: { title: 'my home ssr' } })
-})
-router.post('/postData', async (ctx) => {
-  console.log(ctx.request.body)
-  ctx.body = JSON.stringify({ code: 200, data: { title: 'my post ssr', common:ctx.headers,obj: ctx.request.body } })
-})
 app.use(router.routes(), router.allowedMethods())
 
 
