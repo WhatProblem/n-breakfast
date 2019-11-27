@@ -14,6 +14,10 @@ router.get('/getCategory', goods.getCategory)
 /* 新增商品 */
 router.post('/addGoods', goods.addGoods)
 /* 查看商品列表 */
-router.get('/getGoodsList', goods.getGoodsList)
+router.get('/getGoodsList', goods.getGoods)
+/* 修改商品信息 */
+router.post('/updateGoods', goods.updateGoods)
+/* 删除指定商品 */
+router.del('/deleteGoods', goods.deleteGoods)
 
 module.exports = router

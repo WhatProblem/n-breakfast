@@ -9,7 +9,7 @@
           <el-header height="90px">
             <div class="header">
               Header
-              <span>服务端渲染数据：{{title}}</span>
+              <!-- <span>服务端渲染数据：{{title}}</span> -->
             </div>
             <div class="bread">
               <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -38,11 +38,11 @@ export default {
     Logo,
     Navbar
   },
-  async asyncData({ params,$axios }) {
-    const { data } = await $axios.$get('/getTest');
-    console.log(data)
-    return { title: data.title };
-  }
+  // async asyncData({ params,$axios }) {
+  //   const { data } = await $axios.$get('/getTest');
+  //   console.log(data)
+  //   return { title: data.title };
+  // }
 };
 </script>
 <style lang="scss" scoped>

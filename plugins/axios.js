@@ -1,13 +1,16 @@
 export default function ({ $axios, redirect }) {
     $axios.setHeader('Authorization', '123')
     $axios.onRequest(config => {
-        console.log(config)
-        console.log('Making request to ' + config.url)
+        // console.log(config)
+        // console.log('Making request to ' + config.url)
     })
 
     $axios.onResponse(response => {
-        console.log('Making request to ' + response)
-        console.log(response)
+        // console.log('Making request to ' + response)
+        // console.log(response)
+        if (response.status === 200) {
+            return Promise.resolve(response.data)
+        }
         return Promise.resolve(response)
     })
 
