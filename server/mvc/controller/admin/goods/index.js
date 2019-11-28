@@ -1,5 +1,7 @@
 const db = require('../../../model/db')
 const sql = require('../../../model/sql/adminSQL')
+const banner = require('../banner')
+const discount = require('../discount')
 
 const goods = {
     async getGoodsList(ctx) {
@@ -53,7 +55,7 @@ const goods = {
             ctx.body = JSON.stringify({ code: 500, msg: err })
         })
         // 查询总条数 
-        let sqlTotal = sql.getAll()
+        let sqlTotal = sql.getAll(ctx.request.query)
         let dbDataTotal = await db.query(sqlTotal).catch(err => {
             ctx.body = JSON.stringify({ code: 500, msg: err })
         })
@@ -75,6 +77,15 @@ const goods = {
         })
 
         if (dbData && dbDataId) {
+            // let resBanner = {}
+            // if (ctx.request.body.isBanner) {
+            //     ctx.request.body.id = dbDataId[0]['id']
+            //     banner.addBanner(ctx)
+            // }
+            // if (ctx.request.body.isDiscount) {
+            //     ctx.request.body.id = dbDataId[0]['id']
+            //     discount.addDiscount(ctx)
+            // }
             ctx.body = JSON.stringify({ code: 200, msg: 'success', data: { ...ctx.request.body, id: dbDataId[0]['id'] } })
         }
     },
@@ -85,7 +96,24 @@ const goods = {
         let dbData = await db.query(sqls).catch(err => {
             ctx.body = JSON.stringify({ code: 500, msg: err })
         })
+        // let resBanner = {}
+        // let resDis = {}
         if (dbData) {
+            // if (ctx.request.body.isBanner && !String(ctx.request.body.bannerId)) {
+            //     resBanner = banner.addBanner(ctx)
+            // } else if (!ctx.request.body.isBanner && String(ctx.request.body.bannerId)) {
+            //     ctx.request.query.bannerId = ctx.request.body.bannerId
+            //     ctx.request.query.isBackDelBan = true
+            //     banner.deleteBanner(ctx)
+            // }
+
+            // if (ctx.request.body.isDiscount && !String(ctx.request.body.discountId)) {
+            //     resDis = discount.addDiscount(ctx)
+            // } else if (!ctx.request.body.isDiscount && String(ctx.request.body.discountId)) {
+            //     ctx.request.query.discountId = ctx.request.body.discountId
+            //     ctx.request.query.isBackDelDis = true
+            //     discount.deleteDiscount(ctx)
+            // }
             ctx.body = JSON.stringify({ code: 200, msg: 'success' })
         }
     },

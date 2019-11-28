@@ -19,18 +19,60 @@ const sql = {
     getGoodsId() {
         return 'select max(id) as id from goods_table'
     },
-    getAll() {
+    getAll(obj) {
         // SELECT * ,(SELECT COUNT(*) FROM goods_table) as total_count  FROM goods_table LIMIT 3
-        return `select count(*) as total from goods_table`
+        // return `select count(*) as total from goods_table`
+        return `select count(*) as total from goods_table 
+                inner join sort_table on goods_table.sort_id=sort_table.sort_id 
+                where goods_name like '%${obj.findName}%' or sort_name like '%${obj.findName}%'`
     },
     getGoods(obj) {
-        return `select id, goods_table.sort_id, sort_table.sort_name, goods_name, price, pic_url, introduce from goods_table inner join sort_table on goods_table.sort_id=sort_table.sort_id limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
+        // return `select id, goods_table.sort_id, sort_table.sort_name, goods_name, price, pic_url, introduce from goods_table inner join sort_table on goods_table.sort_id=sort_table.sort_id limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
+        
+        // return `select id, goods_table.sort_id, sort_table.sort_name, goods_name, price, pic_url, introduce from goods_table
+        //         inner join sort_table on goods_table.sort_id=sort_table.sort_id
+        //         where goods_name like '%${obj.findName}%' or sort_name like '%${obj.findName}%' limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
+
+        return `select goods_table.id, goods_table.sort_id, goods_name, price, pic_url, introduce,
+                sort_table.sort_name, banner_table.banner_id, discount_table.discount_id, discount_table.discount_sum, discount_table.start_time, discount_table.end_time
+                from goods_table inner join sort_table on goods_table.sort_id=sort_table.sort_id
+                left join banner_table on goods_table.id=banner_table.id
+                left join discount_table on discount_table.id=goods_table.id
+                where goods_name like '%${obj.findName}%' or sort_name like '%${obj.findName}%' limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
     },
     updateGoods(obj) {
         return `update goods_table set sort_id=${obj.sortId}, goods_name='${obj.goodsName}', price=${obj.price}, pic_url='${obj.picUrl}', introduce='${obj.introduce}' where id=${obj.id}`
     },
     deleteGoods(obj) {
         return `delete from goods_table where id=${obj.id}`
+    },
+
+    /* banner部分 */
+    getBannerId() {
+        return `select max(banner_id) as banner_id from banner_table `
+    },
+    addBanner(obj) {
+        return `insert into banner_table(id) values (${obj.id})`
+    },
+    updateBanner(obj) {
+        return `update banner_table set id=${obj.id} where banner_id=${obj.bannerId}`
+    },
+    deleteBanner(obj) {
+        return `delete from banner_table where banner_id=${obj.bannerId}`
+    },
+
+    /* 限时优惠促销部分 */
+    getDiscountId() {
+        return `select max(discount_id) as discount_id from discount_table `
+    },
+    addDiscount(obj) {
+        return `insert into discount_table(id, discount_sum, start_time, end_time) values (${obj.id}, ${obj.discountSum}, '${obj.startTime}', '${obj.endTime}')`
+    },
+    updateDiscount(obj) {
+        return `update discount_table set discount_sum=${obj.discountSum}, start_time='${obj.startTime}', end_time='${obj.endTime}' where discount_id=${obj.discountId}`
+    },
+    deleteDiscount(obj) {
+        return `delete from discount_table where discount_id=${obj.discountId}`
     }
 }
 
