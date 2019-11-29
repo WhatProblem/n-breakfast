@@ -1,6 +1,10 @@
 <template>
   <div class="home">
     <div class="home_setting"></div>
+    <div>
+      <div></div>
+      <div></div>
+    </div>
       <!-- <div>服务端渲染：{{title}}</div> -->
   </div>
 </template>

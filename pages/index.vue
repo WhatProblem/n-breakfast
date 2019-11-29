@@ -87,11 +87,15 @@ export default {
   background-color: $header-bg;
   color: $header-color;
   text-align: center;
+  padding: 0;
   .header {
     position: relative;
     width: 100%;
     height: 50px;
     text-align: right;
+     box-shadow: 1px 2px 6px $shaow-color;
+    -webkit-box-shadow: 1px 2px 6px $shaow-color;
+    -moz-box-shadow: 1px 2px 6px $shaow-color;
   }
   .proflie{
     width: 74px;
