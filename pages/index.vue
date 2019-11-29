@@ -108,6 +108,7 @@ export default {
   .profile_header{
     width: 45px;
     height: 45px;
+    border-radius: 3px;
   }
   .search {
     width: 220px;
