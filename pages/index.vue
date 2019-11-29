@@ -27,6 +27,8 @@
               </div>
               <!-- <span>服务端渲染数据：{{title}}</span> -->
             </div>
+          </el-header>
+          <el-main>
             <div class="bread">
               <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -35,8 +37,6 @@
                 <el-breadcrumb-item>活动详情</el-breadcrumb-item>
               </el-breadcrumb>
             </div>
-          </el-header>
-          <el-main>
             <nuxt-child></nuxt-child>
           </el-main>
         </el-container>
@@ -97,6 +97,9 @@ export default {
     width: 74px;
     height: 45px;
     margin-left: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 100px;
   }
   .profile_header{
     width: 45px;
@@ -107,15 +110,15 @@ export default {
     height: 30px;
   }
   .search-component {
-    margin-top: 4px;
     width: 246px;
+    display: inline-block;
+    vertical-align: middle;
   }
   .bread {
     width: 100%;
     height: 30px;
     display: flex;
     align-items: center;
-    position: absolute;
     /deep/ .el-breadcrumb__separator {
       color: $header-color;
     }
