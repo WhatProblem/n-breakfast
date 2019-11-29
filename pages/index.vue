@@ -96,10 +96,11 @@ export default {
   .proflie{
     width: 74px;
     height: 45px;
-    margin-left: 20px;
+    margin-left: 33px;
     display: inline-block;
     vertical-align: middle;
     margin-right: 100px;
+    margin-top: 3px;
   }
   .profile_header{
     width: 45px;
@@ -108,11 +109,14 @@ export default {
   .search {
     width: 220px;
     height: 30px;
+    margin-right: 10px;
   }
   .search-component {
-    width: 246px;
+    width: 265px;
     display: inline-block;
     vertical-align: middle;
+    height: 40px;
+    margin-top: 2px;
   }
   .bread {
     width: 100%;
