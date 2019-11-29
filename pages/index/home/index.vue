@@ -23,9 +23,9 @@ export default {
     height: 300px;
     margin-top: 31px;
     background-color: $common-color;
-    box-shadow: 1px 5px 6px #cecece;
-    -webkit-box-shadow: 1px 5px 6px #cecece;
-    -moz-box-shadow: 1px 5px 6px #cecece;
+    box-shadow: 1px 5px 6px $shaow-color;
+    -webkit-box-shadow: 1px 5px 6px $shaow-color;
+    -moz-box-shadow: 1px 5px 6px $shaow-color;
   }
 }
 </style>

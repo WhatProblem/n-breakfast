@@ -2,32 +2,32 @@
   <div class="container">
     <div class="main">
       <el-container>
-        <el-aside width="236px">
-          <Navbar/>
-        </el-aside>
-        <el-container>
-          <el-header height="50px">
-            <div class="header">
-              <div class="search-component">
-                <el-input class="search"></el-input><span class="el-icon-search"></span>
-              </div>
-              <div class="proflie">
-                <el-dropdown>
-                  <span class="el-dropdown-link">
-                    <img class="profile_header" src="../static/arent.jpg" alt=""><i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item icon="el-icon-plus">黄金糕</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-circle-plus">狮子头</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-circle-plus-outline">螺蛳粉</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-check">双皮奶</el-dropdown-item>
-                    <el-dropdown-item icon="el-icon-circle-check">蚵仔煎</el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
-              </div>
-              <!-- <span>服务端渲染数据：{{title}}</span> -->
+        <el-header height="50px">
+          <div class="header">
+            <div class="search-component">
+              <el-input class="search"></el-input><span class="el-icon-search"></span>
             </div>
-          </el-header>
+            <div class="proflie">
+              <el-dropdown>
+                <span class="el-dropdown-link">
+                  <img class="profile_header" src="../static/arent.jpg" alt=""><i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item icon="el-icon-plus">黄金糕</el-dropdown-item>
+                  <el-dropdown-item icon="el-icon-circle-plus">狮子头</el-dropdown-item>
+                  <el-dropdown-item icon="el-icon-circle-plus-outline">螺蛳粉</el-dropdown-item>
+                  <el-dropdown-item icon="el-icon-check">双皮奶</el-dropdown-item>
+                  <el-dropdown-item icon="el-icon-circle-check">蚵仔煎</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+            <!-- <span>服务端渲染数据：{{title}}</span> -->
+          </div>
+        </el-header>
+        <el-container>
+          <el-aside width="236px">
+            <Navbar/>
+          </el-aside>
           <el-main>
             <div class="bread">
               <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -90,7 +90,7 @@ export default {
   .header {
     position: relative;
     width: 100%;
-    height: 60px;
+    height: 50px;
     text-align: right;
   }
   .proflie{
@@ -138,9 +138,12 @@ export default {
   background-color: $sidebar-bg;
   color: $sidebar-color;
   text-align: center;
-  border-top: 50px solid #ffffff;
-  border-left: 10px solid #ffffff;
-  border-bottom: 10px solid #ffffff;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  box-shadow: 1px 5px 6px $shaow-navcolor;
+  -webkit-box-shadow: 1px 5px 6px $shaow-navcolor;
+  -moz-box-shadow: 1px 5px 6px $shaow-navcolor;
 }
 
 .el-main {
@@ -151,8 +154,11 @@ export default {
 
 body > .el-container {
   margin-bottom: 40px;
+  background-color: $main-bg;
 }
-
+.el-container {
+  background-color: $main-bg;
+}
 .el-container:nth-child(5) .el-aside,
 .el-container:nth-child(6) .el-aside {
   // line-height: 260px;
