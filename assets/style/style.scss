@@ -12,14 +12,15 @@ $breakpoint-mini-max: ($breakpoint-small - 1);
 $breakpoint-small-max: ($breakpoint-medium - 1);
 $breakpoint-medium-max: ($breakpoint-large - 1);
 $breakpoint-large-max: ($breakpoint-xlarge - 1);
-$sidebar-bg: rgb(6, 65, 83);
+$sidebar-bg: #ff5a85;
 $sidebar-color: #ffffff;
 $sidebar-active-color: #ffd04b;
-$sidebar-active-bg: rgb(11, 78, 105);
-$header-color: #f6f6f6;
+$sidebar-active-bg: #bc3156;
+$header-color: #333333;
 $header-bread-active-color: #ffffff;
-$header-bg: rgb(20, 120, 160);
+$header-bg: #ffffff;
 $main-bg: #fafafa;
+$common-color: #ffffff;/*左侧导航icon颜色*/
 
 /* 自定义全局样式，通过color:var(--main-bg-color)使用 */
 
