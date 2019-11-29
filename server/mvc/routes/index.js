@@ -1,4 +1,5 @@
-const router = require('koa-router')()
+// const router = require('koa-router')()
+const router = require('./appRoute')
 const goods = require('../controller/admin/goods')
 const banner = require('../controller/admin/banner')
 const discount = require('../controller/admin/discount')

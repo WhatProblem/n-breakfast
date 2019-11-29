@@ -1,13 +1,13 @@
 <template>
   <div class="goods-manage" v-loading="isLoading">
     <div class="util__content">
-      <h5 style="text-align:left;padding-left:20px">商品列表</h5>
+      <div class="goods-list">商品列表</div>
       <el-card class="box-card">
         <div slot="header" class="clearfix" style="text-align:left">
           <span>查询商品：</span>
           <span>
-            <el-input style="width:300px" placeholder="请输入内容" size="small" v-model="searchKey" class="input-with-select">
-              <el-button slot="append" icon="el-icon-search"></el-button>
+            <el-input style="width:300px" placeholder="请输入商品名称/分类名称" size="small" v-model="searchKey" @keyup.native.enter="searchFor" class="input-with-select">
+              <el-button slot="append" icon="el-icon-search" @click="searchFor"></el-button>
             </el-input>
           </span>
           <el-button type="text" style="float: right; padding: 3px 0" icon="el-icon-document-add" @click="add()" >新增</el-button>
@@ -16,10 +16,31 @@
           <el-table :data="goodsList" style="width: 100%" :default-sort="{prop: 'price', order: 'descending'}" empty-text="暂无数据">
             <el-table-column prop="goodsName" label="商品名称" width="180"></el-table-column>
             <el-table-column prop="price" label="商品价格(单位:元)" sortable width="160" align="center"></el-table-column>
-            <el-table-column prop="picUrl" label="商品海报" :show-overflow-tooltip="true" width="300"></el-table-column>
-            <el-table-column prop="introduce" label="商品介绍" width="300" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column label="商品海报">
+              <template slot-scope="scope">
+                <el-popover trigger="hover" placement="top">
+                  <p>{{ scope.row.picUrl }}</p>
+                  <div slot="reference" class="name-wrapper">
+                    <el-tag size="medium">{{ scope.row.picUrl }}</el-tag>
+                  </div>
+                </el-popover>
+              </template>
+            </el-table-column>
+            <el-table-column prop="introduce" label="商品介绍" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column prop="sortName" label="商品分类" width="80"></el-table-column>
-            <el-table-column align="right" width="180">
+            <el-table-column label="轮播选择" align="center" width="80">
+              <template slot-scope="scope">
+                <el-switch @change="switchBanner(scope.row)" v-model="scope.row.bannerId" active-color="#13ce66" inactive-color="#bbbbbb"></el-switch>
+              </template>
+            </el-table-column>
+            <el-table-column label="优惠设置" align="center" width="100">
+              <template slot-scope="scope">
+                <span class="settings-icon" v-if="!scope.row.discount_id" @click="addDiscount(scope.row)"><i class="el-icon-plus"></i></span>
+                <span class="settings-icon" v-if="scope.row.discount_id" @click="editDiscount(scope.row)"><i class="el-icon-edit"></i></span>
+                <span class="settings-icon" v-if="scope.row.discount_id" @click="deleteDiscount(scope.row)"><i class="el-icon-refresh"></i></span>
+              </template>
+            </el-table-column>
+            <el-table-column align="right" width="150">
               <template slot="header" slot-scope="scope">
                 <span>操作</span>
               </template>
@@ -34,10 +55,33 @@
       </el-card>
     </div>
 
+    <!-- 新增限时优惠 -->
+    <div class="add-discount-dialog">
+      <el-dialog title="新增限时优惠" :visible.sync="discountVisible" width="40%">
+        <el-form :model="discountForm" label-width="80px" size="small">
+          <el-form-item label="优惠价格">
+            <el-input v-model="discountForm.discountSum" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="优惠时间" >
+            <el-col :span="11">
+              <el-date-picker type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择开始时间" v-model="discountForm.startTime" style="width: 100%;"></el-date-picker>
+            </el-col>
+            <el-col class="line" :span="2">-</el-col>
+            <el-col :span="11">
+              <el-date-picker type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择结束时间" v-model="discountForm.endTime" style="width: 100%;"></el-date-picker>
+            </el-col>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button size="small" @click="discountVisible = false">取 消</el-button>
+          <el-button size="small" type="primary" @click="saveDiscount()">确 定</el-button>
+        </div>
+      </el-dialog>
+    </div>
     <!-- 新增商品弹框 -->
     <div class="add-modal">
       <el-dialog title="商品信息" :visible.sync="dialogFormVisible" width="60%">
-        <el-form :model="form" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" >
+        <el-form :model="form" :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm" >
           <el-row>
             <el-col :span="12">
               <el-form-item label="商品名称" prop="goodsName">
@@ -99,6 +143,7 @@
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -110,6 +155,7 @@ export default {
       searchKey:'',
       dialogTableVisible: false,
       dialogFormVisible: false,
+      discountVisible: false,
       isUpdate: false, // 确定是修改还是新增
       isLoading: true, // 默认显示loading
       goodsList: [],
@@ -153,8 +199,15 @@ export default {
         ]
       },
       formLabelWidth: "120px",
-      sortDialog: false // 分类对话框
-    };
+      sortDialog: false, // 分类对话框
+      discountForm: {
+        discountSum: '', // 优惠金额
+        startTime: '', // 优惠开始时间
+        endTime: '', // 优惠结束时间
+      },
+      addRow: {}, // 添加优惠选中行
+      isDisAddState: true, // 添加优惠
+    }
   },
   mounted() {
     this.init();
@@ -168,12 +221,16 @@ export default {
         }
       });
     },
-    /**
-     * 分页
-     */
+    /* 查询商品 */
+    searchFor() {
+      this.pages.pageNum = 1
+      this.getGoodsList()
+    },
+    
+    /* 分页 */
     getGoodsList(){
       this.isLoading = true
-      this.$axios.get('/getGoodsList',{params: {pageNum: this.pages.pageNum, pageSize: this.pages.pageSize}}).then(res=> {
+      this.$axios.get('/getGoodsList',{params: {pageNum: this.pages.pageNum, pageSize: this.pages.pageSize, findName: this.searchKey}}).then(res=> {
         if (res.code === 200) {
           this.goodsList = this.adapter(res.data.list)
           this.pages.total = res.data.total
@@ -189,6 +246,11 @@ export default {
         item.picUrl = item.pic_url
         item.sortId = item.sort_id
         item.sortName = item.sort_name
+        item.bannerId = item.banner_id === null ? false : true
+        item.discountSum = item.discount_sum
+        item.discountId = item.discount_id
+        item.startTime = item.start_time
+        item.endTime = item.end_time
       })
       return resp
     },
@@ -311,8 +373,108 @@ export default {
     handleCurrentChange(val) {
       this.pages.pageNum = val
       this.getGoodsList()
-    }
-  }
+    },
+    switchBanner(row) {
+      if (row.bannerId) {
+        this.addBanner(row)
+        return
+      }
+      this.deleteBanner(row)
+    },
+    /* 添加banner */
+    addBanner(opt) {
+      this.$axios.post('/addBanner',{id: opt.id}).then(res=>{
+        if (res.code === 200) {
+          this.goodsList.forEach(item=>{
+            if (item.id === opt.id) {
+              item.banner_id = res.data.bannerId
+              item.bannerId = true
+            }
+          })
+          this.$message({ message: "新增banner成功", type: "success" })
+          return
+        }
+        this.$message({ message: "新增banner失败", type: "error" })
+      })
+    },
+    /* 删除banner */
+    deleteBanner(opt) {
+      this.$axios.delete('/deleteBanner', {params: {bannerId: opt.banner_id}}).then(res=>{
+        if (res.code === 200) {
+          this.goodsList.forEach(item=>{
+            if (item.id === opt.id) {
+              item.banner_id = null
+              item.bannerId = false
+            }
+          })
+          this.$message({ message: "删除banner成功", type: "success" })
+          return
+        }
+        this.$message({ message: "删除banner失败", type: "error" });
+      })
+    },
+    /* 添加优惠 */
+    addDiscount(row) {
+      this.discountForm = {}
+      this.addRow = row
+      this.discountVisible = true
+      this.isDisAddState = true
+    },
+    /* 修改优惠 */
+    editDiscount(row) {
+      this.discountForm = row
+      this.discountVisible = true
+      this.isDisAddState = false
+    },
+    saveDiscount() {
+      this.$axios.post('/addDiscount',{id: this.addRow.id, ...this.discountForm}).then(res=>{
+        this.discountVisible = false
+        if (res.code === 200) {
+          this.addDisToGoodList(res.data)
+          this.$message({ message: "新增优惠成功", type: "success" })
+          return
+        }
+        this.$message({ message: "新增优惠失败", type: "error" });
+      })
+    },
+    updateDiscount() {
+      this.$axios.put('/updateDiscount', {...this.discountForm}).then(res=>{
+        this.discountVisible = false
+        if (res.code === 200) {
+          this.addDisToGoodList(this.discountForm)
+          this.$message({ message: "修改优惠成功", type: "success" })
+          return
+        }
+        this.$message({ message: "修改优惠失败", type: "error" });
+      })
+    },
+    addDisToGoodList(opt) {
+      this.goodsList.forEach(item=>{
+        if (item.id === opt.id) {
+          item.discountId = item.discount_id = opt.discountId
+          item.startTime = item.start_time = opt.startTime
+          item.endTime = item.end_time = opt.endTime
+          item.discountSum = item.discount_sum = opt.discountSum
+        }
+      })
+    },
+    deleteDiscount(row) {
+      this.$confirm('确定删除该优惠配置?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$axios.delete('/deleteDiscount', {params: {discountId: row.discountId}}).then(res=> {
+            if (res.code === 200) {
+              this.addDisToGoodList({discountId: null,startTime: null, endTime: null, discountSum: null})
+              this.$message({ type: 'success', message: '删除优惠成功!' });
+              return
+            }
+            this.$message({ type: 'error', message: '删除优惠失败!' });
+          })
+        })
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -320,6 +482,21 @@ export default {
 .goods-manage {
   .text {
     font-size: 14px;
+  }
+
+  .goods-list {
+    text-align:left;
+    padding-left:20px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .settings-icon {
+    padding: 0 5px;
+    color: #409eff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
   }
 
   .item {
