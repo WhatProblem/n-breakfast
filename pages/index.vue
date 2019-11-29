@@ -99,7 +99,6 @@ export default {
     margin-left: 33px;
     display: inline-block;
     vertical-align: middle;
-    margin-right: 100px;
     margin-top: 3px;
   }
   .profile_header{

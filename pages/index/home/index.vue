@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-      <h1>home</h1>
+    <div class="home_setting"></div>
       <!-- <div>服务端渲染：{{title}}</div> -->
   </div>
 </template>
@@ -13,3 +13,19 @@ export default {
   // }
 };
 </script>
+<style lang="scss" scoped>
+@import "../../../assets/style/style.scss";
+.home{
+  background-color: $main-bg;
+  .home_setting{
+    width: 99%;
+    margin: auto;
+    height: 300px;
+    margin-top: 31px;
+    background-color: $common-color;
+    box-shadow: 1px 5px 6px #cecece;
+    -webkit-box-shadow: 1px 5px 6px #cecece;
+    -moz-box-shadow: 1px 5px 6px #cecece;
+  }
+}
+</style>
