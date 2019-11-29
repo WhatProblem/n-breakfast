@@ -6,9 +6,25 @@
           <Navbar/>
         </el-aside>
         <el-container>
-          <el-header height="90px">
+          <el-header height="50px">
             <div class="header">
-              Header
+              <div class="search-component">
+                <el-input class="search"></el-input><span class="el-icon-search"></span>
+              </div>
+              <div class="proflie">
+                <el-dropdown>
+                  <span class="el-dropdown-link">
+                    <img class="profile_header" src="../static/arent.jpg" alt=""><i class="el-icon-arrow-down el-icon--right"></i>
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item icon="el-icon-plus">黄金糕</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-circle-plus">狮子头</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-circle-plus-outline">螺蛳粉</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-check">双皮奶</el-dropdown-item>
+                    <el-dropdown-item icon="el-icon-circle-check">蚵仔煎</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </div>
               <!-- <span>服务端渲染数据：{{title}}</span> -->
             </div>
             <div class="bread">
@@ -37,7 +53,7 @@ export default {
   components: {
     Logo,
     Navbar
-  },
+  }
   // async asyncData({ params,$axios }) {
   //   const { data } = await $axios.$get('/getTest');
   //   console.log(data)
@@ -59,6 +75,13 @@ export default {
   width: 100%;
   height: 100%;
 }
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409EFF;
+}
+.el-icon-arrow-down {
+  font-size: 12px;
+}
 .el-header,
 .el-footer {
   background-color: $header-bg;
@@ -68,12 +91,31 @@ export default {
     position: relative;
     width: 100%;
     height: 60px;
+    text-align: right;
+  }
+  .proflie{
+    width: 74px;
+    height: 45px;
+    margin-left: 20px;
+  }
+  .profile_header{
+    width: 45px;
+    height: 45px;
+  }
+  .search {
+    width: 220px;
+    height: 30px;
+  }
+  .search-component {
+    margin-top: 4px;
+    width: 246px;
   }
   .bread {
     width: 100%;
     height: 30px;
     display: flex;
     align-items: center;
+    position: absolute;
     /deep/ .el-breadcrumb__separator {
       color: $header-color;
     }
@@ -90,6 +132,9 @@ export default {
   background-color: $sidebar-bg;
   color: $sidebar-color;
   text-align: center;
+  border-top: 50px solid #ffffff;
+  border-left: 10px solid #ffffff;
+  border-bottom: 10px solid #ffffff;
 }
 
 .el-main {
