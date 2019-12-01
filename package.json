@@ -14,6 +14,7 @@
     "@nuxtjs/axios": "^5.3.6",
     "cross-env": "^5.2.0",
     "element-ui": "2.12.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
     "koa-mysql": "^1.0.3",

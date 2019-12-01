@@ -12,20 +12,17 @@
       </el-menu-item>
       <el-submenu index="1">
         <template slot="title">
-          <i class="el-icon-location iconcolor"></i>
-          <span>商品管理</span>
+          <i class="el-icon-user-solid iconcolor"></i>
+          <span>用户信息</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="1-1" @click="navTo('/')">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
+          <el-menu-item index="1-1" @click="navTo('/userInfo/userList')">用户列表</el-menu-item>
+          <el-menu-item index="1-2" @click="navTo('/userInfo/orderList')">订单列表</el-menu-item>
+          <el-menu-item index="1-3" @click="navTo('/userInfo/favList')">收藏列表</el-menu-item>
+          <el-menu-item index="1-4" @click="navTo('/userInfo/cartList')">购物车列表</el-menu-item>
+          <el-menu-item index="1-5" @click="navTo('/userInfo/scoreList')">用户积分</el-menu-item>
+          <el-menu-item index="1-6" @click="navTo('/userInfo/couponList')">用户卡券</el-menu-item>
         </el-menu-item-group>
-        <el-menu-item-group>
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
       </el-submenu>
       <el-menu-item index="2">
         <i class="el-icon-menu iconcolor"></i>

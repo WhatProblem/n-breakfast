@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2019-11-24 15:10:59
+-- Generation Time: 2019-11-29 13:50:03
 -- 服务器版本： 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `brreakfast_shop`
+-- Database: `breakfast_shop`
 --
 
 -- --------------------------------------------------------
@@ -84,6 +84,13 @@ CREATE TABLE `discount_table` (
   `end_time` datetime NOT NULL COMMENT '打折优惠结束时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- 转存表中的数据 `discount_table`
+--
+
+INSERT INTO `discount_table` (`discount_id`, `id`, `discount_sum`, `start_time`, `end_time`) VALUES
+(1, 10, '5', '2019-11-28 20:35:00', '2020-11-28 00:00:00');
+
 -- --------------------------------------------------------
 
 --
@@ -110,6 +117,19 @@ CREATE TABLE `goods_table` (
   `pic_url` varchar(255) NOT NULL COMMENT '商品图片，来自百度',
   `introduce` varchar(255) NOT NULL DEFAULT '' COMMENT '商品介绍'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `goods_table`
+--
+
+INSERT INTO `goods_table` (`id`, `sort_id`, `goods_name`, `price`, `pic_url`, `introduce`) VALUES
+(1, 1, '天津小笼包', '7.50', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574865658023&di=5a69eae48a529a5fb59ba2467c8a4a77&imgtype=0&src=http%3A%2F%2Fimg011.hc360.cn%2Fy6%2FM00%2F1F%2FB5%2FwKhQtFYz4waEYXCPAAAAAPkk2V4005.jpg', '小笼包，别称小笼馒头，在苏南、上海、浙江一带习惯叫做小笼馒头，四川叫做小笼包子，武汉叫做蒸包，一个蒸笼里有10个包子，10个包子为一笼，它源于北宋京城开封的灌汤包，南宋时在江南承传、发展和演变而成。小笼包是常州、无锡、苏州、上海、南京、杭州、宁波、嘉兴、芜湖、徽州、嵊州等江南地区著名的传统小吃。'),
+(2, 2, '水果糕点', '28.00', 'http://photo.orsoon.com/180516/JPG180516_271/DZ7ijJzmfI_small.jpg', '饭后必备纯天然食材，健康助消化，口感绝佳'),
+(3, 3, '新鲜西兰花', '5.50', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574867467967&di=3a8e2f1bf575f7325e993e6787cf637c&imgtype=jpg&src=http%3A%2F%2Fimg2.imgtn.bdimg.com%2Fit%2Fu%3D1532762362%2C4131033962%26fm%3D214%26gp%3D0.jpg', '西蓝花，俗称青花菜。原产意大利，是常见蔬菜。通称绿花菜，也被称为西兰花。二年生草本植物，是甘蓝的一种变种。叶子大，主茎顶端形成肥大的花球，绿色或紫绿色，表面的小花蕾不密集在一起，侧枝的顶端各生小花球。'),
+(4, 4, '饭后小甜品', '16.00', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574867599529&di=a4e45a3b8c17b4a7ae0c4c4ae495a12c&imgtype=0&src=http%3A%2F%2Fimage.bitauto.com%2Fdealer%2Fnews%2F100046308%2F6545b08e-2721-41c1-ba37-ddd2d6eb1015.jpg', '以面粉或米粉、糖、油脂、蛋、乳品等为主要原料，配以各种辅料、馅料和调味料，初制成型，再经蒸、烤、炸、炒等方式加工制成'),
+(8, 2, '特色牛奶水果面包套餐', '18.00', 'http://img1.juimg.com/180122/330627-1P122144Q596.jpg', '特色牛奶水果面包套餐，爽口美味，回味无穷，香甜水果，美味面包'),
+(9, 2, '特色全家桶', '36.00', 'http://photo.orsoon.com/180516/JPG180516_271/DZ7ijJzmfI_small.jpg', '适合家人朋友一起享用的美味水果面包早餐，营养健康，最美好的一天从早上开始'),
+(10, 4, '脆皮烤肠', '5.00', 'http://www.jituwang.com/uploads/allimg/130611/260177-13061109164585.jpg', '脆皮烤肠，美味可口，绝对美味');
 
 -- --------------------------------------------------------
 
@@ -148,6 +168,16 @@ CREATE TABLE `sort_table` (
   `sort_id` tinyint(3) UNSIGNED NOT NULL COMMENT '商品分类id',
   `sort_name` char(10) NOT NULL COMMENT '商品分类名称'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `sort_table`
+--
+
+INSERT INTO `sort_table` (`sort_id`, `sort_name`) VALUES
+(1, '面食'),
+(2, '水果'),
+(3, '蔬菜'),
+(4, '糕点');
 
 -- --------------------------------------------------------
 
@@ -241,6 +271,16 @@ ALTER TABLE `user_table`
 --
 
 --
+-- 使用表AUTO_INCREMENT `advertise_table`
+--
+ALTER TABLE `advertise_table`
+  MODIFY `advertise_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '广告卡片id';
+--
+-- 使用表AUTO_INCREMENT `banner_table`
+--
+ALTER TABLE `banner_table`
+  MODIFY `banner_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '轮播商品id，根据商品id查询商品表';
+--
 -- 使用表AUTO_INCREMENT `cart_table`
 --
 ALTER TABLE `cart_table`
@@ -254,7 +294,7 @@ ALTER TABLE `coupon_table`
 -- 使用表AUTO_INCREMENT `discount_table`
 --
 ALTER TABLE `discount_table`
-  MODIFY `discount_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '限时优惠商品id';
+  MODIFY `discount_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '限时优惠商品id', AUTO_INCREMENT=2;
 --
 -- 使用表AUTO_INCREMENT `fav_table`
 --
@@ -264,7 +304,7 @@ ALTER TABLE `fav_table`
 -- 使用表AUTO_INCREMENT `goods_table`
 --
 ALTER TABLE `goods_table`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品id，商品唯一编码';
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品id，商品唯一编码', AUTO_INCREMENT=11;
 --
 -- 使用表AUTO_INCREMENT `order_table`
 --
@@ -279,7 +319,7 @@ ALTER TABLE `rating_table`
 -- 使用表AUTO_INCREMENT `sort_table`
 --
 ALTER TABLE `sort_table`
-  MODIFY `sort_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品分类id';
+  MODIFY `sort_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品分类id', AUTO_INCREMENT=5;
 --
 -- 使用表AUTO_INCREMENT `user_table`
 --

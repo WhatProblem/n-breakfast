@@ -28,6 +28,18 @@ const sql = {
         return `select goods_table.id, goods_table.sort_id, goods_name, price, pic_url, introduce,
                 discount_table.discount_id,discount_table.id,discount_table.discount_sum,discount_table.start_time,discount_table.end_time
                 from goods_table left join discount_table on discount_table.id=goods_table.id where goods_table.sort_id=${obj.sortId} limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
+    },
+
+    /* 插入注册用户数据 */
+    register(obj) {
+        return `insert into user_table (user_name, user_hash, avatar, province, city, country, addr_detail) 
+                values ('${obj.userName}', '${obj.userHash}', '${obj.avatar}', '${obj.province}', '${obj.city}', '${obj.country}', '${obj.addrDetail}')`
+    },
+
+    /* 判断数据库中用户是否存在 */
+    login(obj) {
+        // INSERT INTO t_stock_chg(f_market, f_stockID, f_name) VALUES('SH', '600000', '白云机场') ON DUPLICATE KEY UPDATE f_market='SH', f_name='浦发银行'
+        return `select * from user_table where user_name = '${obj.userName}' limit 1`
     }
 }
 

@@ -4,7 +4,9 @@ const { Nuxt, Builder } = require('nuxt')
 const router = require('./mvc/routes')
 const bodyParser = require('koa-bodyparser')
 const app = new Koa()
+const cors = require('./mvc/model/cors')
 
+app.use(cors)
 app.use(bodyParser())
 app.use(router.routes(), router.allowedMethods())
 

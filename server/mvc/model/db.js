@@ -2,7 +2,7 @@ const Koa = require('koa')
 const mysql = require('koa-mysql')
 const config = require('./config')
 const app = new Koa()
-const pool = mysql.createPool(config)
+const pool = mysql.createPool({ user: config.user, password: config.password, host: config.host, port: config.port, database: config.database })
 
 const query = (sql) => {
     return new Promise((resolve, reject) => {

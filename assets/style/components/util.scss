@@ -23,3 +23,52 @@
 .util__content {
     width: 100%;
 }
+
+.util__card-list-title {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 30px 20px 15px;
+    text-align: left;
+}
+/* el-card标题 */
+.clearfix {
+    font-size: 14px;
+}
+
+.item {
+     margin-bottom: 18px;
+ }
+
+ .clearfix {
+     font-size: 14px;
+ }
+
+ .clearfix:before,
+ .clearfix:after {
+     display: table;
+     content: "";
+ }
+
+ .clearfix:after {
+     clear: both;
+ }
+
+ .el-card,
+ .box-card {
+     width: 100%;
+ }
+
+ .el-dialog__body {
+     padding-top: 0;
+     padding-bottom: 0;
+ }
+
+ .el-row {
+     &:last-child {
+         margin-bottom: 0;
+     }
+ }
+
+ .el-col {
+     border-radius: 4px;
+ }

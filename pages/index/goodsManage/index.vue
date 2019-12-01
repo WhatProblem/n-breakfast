@@ -1,7 +1,7 @@
 <template>
   <div class="goods-manage" v-loading="isLoading">
     <div class="util__content">
-      <div class="goods-list">商品列表</div>
+      <div class="util__card-list-title">商品列表</div>
       <el-card class="box-card">
         <div slot="header" class="clearfix" style="text-align:left">
           <span>查询商品：</span>
@@ -19,7 +19,7 @@
             <el-table-column label="商品海报">
               <template slot-scope="scope">
                 <el-popover trigger="hover" placement="top">
-                  <p>{{ scope.row.picUrl }}</p>
+                  <el-link :href="scope.row.picUrl" type="danger" target="_blank">{{ scope.row.picUrl }}</el-link>
                   <div slot="reference" class="name-wrapper">
                     <el-tag size="medium">{{ scope.row.picUrl }}</el-tag>
                   </div>
@@ -210,6 +210,7 @@ export default {
     }
   },
   mounted() {
+    this.isLoading = true
     this.init();
   },
   methods: {
@@ -480,58 +481,12 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/style/components/util.scss";
 .goods-manage {
-  .text {
-    font-size: 14px;
-  }
-
-  .goods-list {
-    text-align:left;
-    padding-left:20px;
-    margin-bottom: 15px;
-    font-size: 16px;
-    font-weight: bold;
-  }
   .settings-icon {
     padding: 0 5px;
     color: #409eff;
     cursor: pointer;
     font-size: 18px;
     font-weight: bold;
-  }
-
-  .item {
-    margin-bottom: 18px;
-  }
-  .clearfix {
-    font-size: 14px;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both;
-  }
-
-  .el-card,
-  .box-card {
-    width: 100%;
-  }
-
-  .el-dialog__body {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .el-row {
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  .el-col {
-    border-radius: 4px;
   }
 }
 </style>
