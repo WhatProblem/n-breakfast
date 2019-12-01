@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2019-11-29 13:50:03
+-- Generation Time: 2019-12-01 15:15:49
 -- 服务器版本： 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -43,6 +43,13 @@ CREATE TABLE `banner_table` (
   `banner_id` smallint(5) UNSIGNED NOT NULL COMMENT '轮播商品id，根据商品id查询商品表',
   `id` smallint(5) UNSIGNED NOT NULL COMMENT '商品id'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `banner_table`
+--
+
+INSERT INTO `banner_table` (`banner_id`, `id`) VALUES
+(1, 9);
 
 -- --------------------------------------------------------
 
@@ -84,13 +91,6 @@ CREATE TABLE `discount_table` (
   `end_time` datetime NOT NULL COMMENT '打折优惠结束时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `discount_table`
---
-
-INSERT INTO `discount_table` (`discount_id`, `id`, `discount_sum`, `start_time`, `end_time`) VALUES
-(1, 10, '5', '2019-11-28 20:35:00', '2020-11-28 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -129,7 +129,12 @@ INSERT INTO `goods_table` (`id`, `sort_id`, `goods_name`, `price`, `pic_url`, `i
 (4, 4, '饭后小甜品', '16.00', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574867599529&di=a4e45a3b8c17b4a7ae0c4c4ae495a12c&imgtype=0&src=http%3A%2F%2Fimage.bitauto.com%2Fdealer%2Fnews%2F100046308%2F6545b08e-2721-41c1-ba37-ddd2d6eb1015.jpg', '以面粉或米粉、糖、油脂、蛋、乳品等为主要原料，配以各种辅料、馅料和调味料，初制成型，再经蒸、烤、炸、炒等方式加工制成'),
 (8, 2, '特色牛奶水果面包套餐', '18.00', 'http://img1.juimg.com/180122/330627-1P122144Q596.jpg', '特色牛奶水果面包套餐，爽口美味，回味无穷，香甜水果，美味面包'),
 (9, 2, '特色全家桶', '36.00', 'http://photo.orsoon.com/180516/JPG180516_271/DZ7ijJzmfI_small.jpg', '适合家人朋友一起享用的美味水果面包早餐，营养健康，最美好的一天从早上开始'),
-(10, 4, '脆皮烤肠', '5.00', 'http://www.jituwang.com/uploads/allimg/130611/260177-13061109164585.jpg', '脆皮烤肠，美味可口，绝对美味');
+(10, 4, '脆皮烤肠', '5.00', 'http://www.jituwang.com/uploads/allimg/130611/260177-13061109164585.jpg', '脆皮烤肠，美味可口，绝对美味'),
+(11, 5, '酸辣豆腐脑', '5.00', 'http://img0.imgtn.bdimg.com/it/u=1886190110,1538725553&fm=214&gp=0.jpg', '豆腐脑一道著名的汉族传统小吃，常与豆腐花、豆花混用，依据各地口味不同，北方多爱咸食，而南方则偏爱甜味，亦有地区如四川等喜爱酸辣口味。\n豆腐脑和豆花都是做豆腐的中间产物，成分上并没有太大区别。豆腐脑是最先出来的，比较嫩软，用筷子难以夹起，需用汤勺盛用；等到豆腐脑再凝固一点，就是豆花，与豆腐脑相比口感凝滑，可以用筷子夹起来吃；豆花放入模具里面压实更加凝固之后就是豆腐了'),
+(12, 5, '胡辣汤', '4.00', 'http://pic34.nipic.com/20131022/9885883_003030145000_2.jpg', '胡辣汤，也称糊辣汤，中原知名小吃，起源于河南省周口市西华县逍遥镇和漯河市舞阳县北舞渡镇。尤以逍遥镇胡辣汤出名。\n胡辣汤的主要制作材料有胡辣汤料、胡椒、辣椒、熟羊（牛）肉、羊骨高汤、面筋、面粉、粉条、黄花菜、花生、木耳等。是中国北方早餐中常见的传统汤类名吃。'),
+(13, 5, '纸杯豆浆', '3.00', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575043097129&di=df92dc8bdb62a09e49dfb6ece411df8d&imgtype=0&src=http%3A%2F%2Fpic1.16pic.com%2F00%2F13%2F67%2F16pic_1367919_b.jpg', '豆浆（Soybean Milk)，中国汉族传统饮品，最早的豆浆为西汉淮南王刘安制作。将大豆用水泡涨后磨碎、过滤、煮沸而成。豆浆营养非常丰富，且易于消化吸收。与西方的牛奶不同，豆浆是非常具有中国民族特色的食品，广泛流行于华人地区。'),
+(14, 5, '豆浆', '2.00', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575043255647&di=c8f7b6e1125a2497ee9517d175ab4292&imgtype=0&src=http%3A%2F%2Fimg008.hc360.cn%2Fm6%2FM01%2FD2%2F24%2FwKhQolcMt3KESyyrAAAAAM34w5c813.jpg', '豆浆（Soybean Milk)，中国汉族传统饮品，最早的豆浆为西汉淮南王刘安制作。将大豆用水泡涨后磨碎、过滤、煮沸而成。豆浆营养非常丰富，且易于消化吸收。与西方的牛奶不同，豆浆是非常具有中国民族特色的食品，广泛流行于华人地区。'),
+(15, 5, '手磨豆浆', '3.50', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575043320202&di=f6eaa90f6c20fdd172cd501a9536c045&imgtype=0&src=http%3A%2F%2Fwww.dgdoudou.com%2Fuploads%2Fallimg%2F171025%2F2-1G02510345b59.jpg', '豆浆（Soybean Milk)，中国汉族传统饮品，最早的豆浆为西汉淮南王刘安制作。将大豆用水泡涨后磨碎、过滤、煮沸而成。豆浆营养非常丰富，且易于消化吸收。与西方的牛奶不同，豆浆是非常具有中国民族特色的食品，广泛流行于华人地区。');
 
 -- --------------------------------------------------------
 
@@ -177,7 +182,8 @@ INSERT INTO `sort_table` (`sort_id`, `sort_name`) VALUES
 (1, '面食'),
 (2, '水果'),
 (3, '蔬菜'),
-(4, '糕点');
+(4, '糕点'),
+(5, '早餐汤');
 
 -- --------------------------------------------------------
 
@@ -188,13 +194,21 @@ INSERT INTO `sort_table` (`sort_id`, `sort_name`) VALUES
 CREATE TABLE `user_table` (
   `user_id` smallint(5) UNSIGNED NOT NULL COMMENT '用户id',
   `user_name` char(20) NOT NULL COMMENT '用户名称',
-  `pwd` varchar(255) NOT NULL COMMENT '用户密码',
+  `user_hash` varchar(255) NOT NULL COMMENT '账号密码hash值',
   `avatar` varchar(255) NOT NULL COMMENT '用户头像',
-  `country` char(20) NOT NULL COMMENT '用户所在国家',
   `province` char(15) NOT NULL COMMENT '用户所在省份',
   `city` char(15) NOT NULL COMMENT '用户所在市',
+  `country` char(20) NOT NULL COMMENT '用户所在国家',
   `addr_detail` varchar(255) NOT NULL COMMENT '用户详细地址'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `user_table`
+--
+
+INSERT INTO `user_table` (`user_id`, `user_name`, `user_hash`, `avatar`, `province`, `city`, `country`, `addr_detail`) VALUES
+(1, 'ws1234', 'e10adc3949ba59abbe56e057f20f883e', 'http://img0.imgtn.bdimg.com/it/u=1684913535,4269011780&fm=214&gp=0.jpg', '北京', '北京市', '朝阳区', '北京市朝阳区朝阳大悦城108号'),
+(6, 'app1234', 'e10adc3949ba59abbe56e057f20f883e', 'http://img0.imgtn.bdimg.com/it/u=1684913535,4269011780&fm=214&gp=0.jpg', '北京', '北京市', '朝阳区', '北京市朝阳区朝阳大悦城108号');
 
 --
 -- Indexes for dumped tables
@@ -279,7 +293,7 @@ ALTER TABLE `advertise_table`
 -- 使用表AUTO_INCREMENT `banner_table`
 --
 ALTER TABLE `banner_table`
-  MODIFY `banner_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '轮播商品id，根据商品id查询商品表';
+  MODIFY `banner_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '轮播商品id，根据商品id查询商品表', AUTO_INCREMENT=2;
 --
 -- 使用表AUTO_INCREMENT `cart_table`
 --
@@ -294,7 +308,7 @@ ALTER TABLE `coupon_table`
 -- 使用表AUTO_INCREMENT `discount_table`
 --
 ALTER TABLE `discount_table`
-  MODIFY `discount_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '限时优惠商品id', AUTO_INCREMENT=2;
+  MODIFY `discount_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '限时优惠商品id';
 --
 -- 使用表AUTO_INCREMENT `fav_table`
 --
@@ -304,7 +318,7 @@ ALTER TABLE `fav_table`
 -- 使用表AUTO_INCREMENT `goods_table`
 --
 ALTER TABLE `goods_table`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品id，商品唯一编码', AUTO_INCREMENT=11;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品id，商品唯一编码', AUTO_INCREMENT=16;
 --
 -- 使用表AUTO_INCREMENT `order_table`
 --
@@ -319,12 +333,12 @@ ALTER TABLE `rating_table`
 -- 使用表AUTO_INCREMENT `sort_table`
 --
 ALTER TABLE `sort_table`
-  MODIFY `sort_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品分类id', AUTO_INCREMENT=5;
+  MODIFY `sort_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品分类id', AUTO_INCREMENT=6;
 --
 -- 使用表AUTO_INCREMENT `user_table`
 --
 ALTER TABLE `user_table`
-  MODIFY `user_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户id';COMMIT;
+  MODIFY `user_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户id', AUTO_INCREMENT=7;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
