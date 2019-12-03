@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2019-12-01 15:15:49
+-- Generation Time: 2019-12-03 15:56:39
 -- 服务器版本： 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -103,6 +103,14 @@ CREATE TABLE `fav_table` (
   `user_id` smallint(5) UNSIGNED NOT NULL COMMENT '用户id'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- 转存表中的数据 `fav_table`
+--
+
+INSERT INTO `fav_table` (`fav_id`, `id`, `user_id`) VALUES
+(1, 1, 1),
+(2, 2, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -171,19 +179,21 @@ CREATE TABLE `rating_table` (
 
 CREATE TABLE `sort_table` (
   `sort_id` tinyint(3) UNSIGNED NOT NULL COMMENT '商品分类id',
-  `sort_name` char(10) NOT NULL COMMENT '商品分类名称'
+  `sort_name` char(10) NOT NULL COMMENT '商品分类名称',
+  `sort_icon` varchar(255) NOT NULL COMMENT '商品分类图标'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `sort_table`
 --
 
-INSERT INTO `sort_table` (`sort_id`, `sort_name`) VALUES
-(1, '面食'),
-(2, '水果'),
-(3, '蔬菜'),
-(4, '糕点'),
-(5, '早餐汤');
+INSERT INTO `sort_table` (`sort_id`, `sort_name`, `sort_icon`) VALUES
+(1, '面食', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575385798701&di=34d6b322f6a7820a22229b07cb30f6e1&imgtype=jpg&src=http%3A%2F%2Fimg2.imgtn.bdimg.com%2Fit%2Fu%3D2644741112%2C3522400763%26fm%3D214%26gp%3D0.jpg'),
+(2, '水果', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575385908930&di=cf32040c9f344cef58cddaa9cff412c0&imgtype=0&src=http%3A%2F%2Fwww.51yuansu.com%2Fpic2%2Fcover%2F00%2F53%2F95%2F582578c79d148_610.jpg'),
+(3, '蔬菜', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575386029180&di=767ce163a0a1c0fb02e685e970f094ce&imgtype=0&src=http%3A%2F%2Ffile3.youboy.com%2Fe%2F2015%2F5%2F18%2F14%2F258825s.png'),
+(4, '糕点', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575386226529&di=2733b98e0bc9dc370706c7c9e1cf3a03&imgtype=0&src=http%3A%2F%2Fi1.chuimg.com%2Fe115784ca7a111e5ba16e0db5512b208.jpg%402o_50sh_1pr_1l_600w_90q_1wh'),
+(5, '早餐汤', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1575981026&di=5c2faaa18c3714486ee0024d3941ab8f&imgtype=jpg&er=1&src=http%3A%2F%2Fimg002.hc360.cn%2Fm1%2FM04%2FFC%2F8D%2FwKhQb1RnFd2EXx80AAAAABO4uKo581.jpg'),
+(7, '米饭类', 'http://ku.90sjimg.com/element_origin_min_pic/16/07/21/16579087188e276.jpg');
 
 -- --------------------------------------------------------
 
@@ -313,7 +323,7 @@ ALTER TABLE `discount_table`
 -- 使用表AUTO_INCREMENT `fav_table`
 --
 ALTER TABLE `fav_table`
-  MODIFY `fav_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '加入收藏的商品id';
+  MODIFY `fav_id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '加入收藏的商品id', AUTO_INCREMENT=3;
 --
 -- 使用表AUTO_INCREMENT `goods_table`
 --
@@ -333,7 +343,7 @@ ALTER TABLE `rating_table`
 -- 使用表AUTO_INCREMENT `sort_table`
 --
 ALTER TABLE `sort_table`
-  MODIFY `sort_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品分类id', AUTO_INCREMENT=6;
+  MODIFY `sort_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品分类id', AUTO_INCREMENT=8;
 --
 -- 使用表AUTO_INCREMENT `user_table`
 --

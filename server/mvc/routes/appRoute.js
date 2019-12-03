@@ -5,6 +5,7 @@ const discount = require('../controller/app/discount')
 const user = require('../controller/app/user')
 const goods = require('../controller/app/goods')
 const fav = require('../controller/app/fav')
+const cart = require('../controller/app/cart')
 
 /**
  * 获取banner列表
@@ -71,5 +72,12 @@ router.get('/app/goodsDetail', goods.goodsDetail)
  * @returns {code,msg}
  */
 router.post('/app/addOrDelFav', fav.addOrDelFav)
+
+/**
+ * 添加到购物车
+ * @param {id} 商品id
+ * @param {goodsNum} 商品数量
+ */
+router.post('/app/addOrDelCart', cart.addOrDelCart)
 
 module.exports = router

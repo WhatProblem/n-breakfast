@@ -33,7 +33,7 @@ const goods = {
 
     /* 新增商品分类 */
     async addCategory(ctx) {
-        let sqls = sql.addCategory(ctx.request.body.sortName)
+        let sqls = sql.addCategory(ctx.request.body)
         let dbData = await db.query(sqls).catch(err => {
             ctx.body = JSON.stringify({ code: 500, msg: err })
         })
@@ -44,7 +44,7 @@ const goods = {
         })
 
         if (dbData && dbDataId) {
-            ctx.body = JSON.stringify({ code: 200, msg: 'success', data: { sort_name: ctx.request.body.sortName, sort_id: dbDataId[0]['sortId'] } })
+            ctx.body = JSON.stringify({ code: 200, msg: 'success', data: { sort_name: ctx.request.body.sortName, sort_icon: ctx.request.body.sortIcon, sort_id: dbDataId[0]['sortId'] } })
         }
     },
 

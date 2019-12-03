@@ -42,15 +42,27 @@ const sql = {
         return `select * from user_table where user_name = '${obj.userName}' limit 1`
     },
 
-    /* 查询商品详情 */
-    goodsDetail(id) {
+    /* 查询商品详情- */
+    goodsDetail(obj, status) {
+        if (status) {
+            return `select goods_table.id, goods_table.sort_id, goods_table.goods_name, goods_table.price, goods_table.pic_url, goods_table.introduce,
+                sort_table.sort_name, discount_table.discount_id, discount_table.discount_sum, discount_table.start_time, discount_table.end_time,
+                rating_table.ratingId, rating_table.user_id, rating_table.score, rating_table.rating,
+                cart_table.cart_id, cart_table.goods_num, fav_table.fav_id
+                from goods_table inner join sort_table on goods_table.sort_id=sort_table.sort_id
+                left join rating_table on goods_table.id=rating_table.id
+                left join discount_table on discount_table.id=goods_table.id
+                left join fav_table on (fav_table.user_id=${obj.userId} and fav_table.id=${obj.id})
+                left join cart_table on (cart_table.user_id=${obj.userId} and cart_table.id=${obj.id})
+                where goods_table.id=${obj.id}`
+        }
         return `select goods_table.id, goods_table.sort_id, goods_table.goods_name, goods_table.price, goods_table.pic_url, goods_table.introduce,
                 sort_table.sort_name, discount_table.discount_id, discount_table.discount_sum, discount_table.start_time, discount_table.end_time,
                 rating_table.ratingId, rating_table.user_id, rating_table.score, rating_table.rating
                 from goods_table inner join sort_table on goods_table.sort_id=sort_table.sort_id
                 left join rating_table on goods_table.id=rating_table.id
                 left join discount_table on discount_table.id=goods_table.id
-                where goods_table.id=${id}`
+                where goods_table.id=${obj.id}`
     },
 
     /* 获取最新注册用户的user_id */

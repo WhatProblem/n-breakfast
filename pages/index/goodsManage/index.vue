@@ -133,6 +133,9 @@
           <el-form-item label="分类名称" prop="sortName">
             <el-input v-model="sortForm.sortName" size="small"></el-input>
           </el-form-item>
+          <el-form-item label="分类图标" prop="sortIcon">
+            <el-input v-model="sortForm.sortIcon" size="small"></el-input>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button @click="sortDialog=false">取消</el-button>
@@ -160,11 +163,14 @@ export default {
       isLoading: true, // 默认显示loading
       goodsList: [],
       sortOptionList: [],
-      sortForm: { sortName: "" },
+      sortForm: { sortName: "", sortIcon: "" },
       sortRules: {
         sortName: [
           { required: true, message: "请输入商品分类名称", trigger: "blur" },
           { min: 1, max: 10, message: "长度在 1 到 10 个字符", trigger: "blur" }
+        ],
+        sortIcon: [
+          { required: true, message: "请输入商品分类图标地址", trigger: "blur" }
         ]
       },
       form: {
@@ -266,11 +272,12 @@ export default {
     addSort() {
       this.sortDialog = false;
       this.$axios
-        .post("/addCategory", { sortName: this.sortForm.sortName })
+        .post("/addCategory", { sortName: this.sortForm.sortName, sortIcon: this.sortForm.sortIcon })
         .then(res => {
           if (res.code === 200) {
             this.$message({ message: "新增分类成功", type: "success" });
             this.sortForm.sortName = "";
+            this.sortForm.sortIcon = "";
             this.sortOptionList.push(res.data);
             return;
           }

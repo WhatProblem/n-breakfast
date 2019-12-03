@@ -7,8 +7,8 @@ const sql = {
     getCategory() {
         return 'select * from sort_table'
     },
-    addCategory(val) {
-        return `insert into sort_table (sort_name) values ('${val}')`
+    addCategory(obj) {
+        return `insert into sort_table (sort_name, sort_icon) values ('${obj.sortName}', '${obj.sortIcon}')`
     },
     getCategoryId() {
         return 'select max(sort_id) as sortId from sort_table'
@@ -20,19 +20,11 @@ const sql = {
         return 'select max(id) as id from goods_table'
     },
     getAll(obj) {
-        // SELECT * ,(SELECT COUNT(*) FROM goods_table) as total_count  FROM goods_table LIMIT 3
-        // return `select count(*) as total from goods_table`
         return `select count(*) as total from goods_table 
                 inner join sort_table on goods_table.sort_id=sort_table.sort_id 
                 where goods_name like '%${obj.findName}%' or sort_name like '%${obj.findName}%'`
     },
     getGoods(obj) {
-        // return `select id, goods_table.sort_id, sort_table.sort_name, goods_name, price, pic_url, introduce from goods_table inner join sort_table on goods_table.sort_id=sort_table.sort_id limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
-        
-        // return `select id, goods_table.sort_id, sort_table.sort_name, goods_name, price, pic_url, introduce from goods_table
-        //         inner join sort_table on goods_table.sort_id=sort_table.sort_id
-        //         where goods_name like '%${obj.findName}%' or sort_name like '%${obj.findName}%' limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
-
         return `select goods_table.id, goods_table.sort_id, goods_name, price, pic_url, introduce,
                 sort_table.sort_name, banner_table.banner_id, discount_table.discount_id, discount_table.discount_sum, discount_table.start_time, discount_table.end_time
                 from goods_table inner join sort_table on goods_table.sort_id=sort_table.sort_id

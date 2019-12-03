@@ -13,6 +13,7 @@ router.get('/goodsList', goods.getGoodsList)
 /**
  * 新增商品分类
  * @param {sortName} - 分类名称
+ * @param {sortIcon} - 分类图标
  * @returns {sortId, sortName}
  */
 router.post('/addCategory', goods.addCategory)
