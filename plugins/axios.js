@@ -1,5 +1,5 @@
 export default function ({ $axios, redirect }) {
-    $axios.setHeader('Authorization', '123')
+    $axios.setHeader('authorization', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ3cyIsInN1YiI6InNob3BfYXBwIiwiYXVkIjoibW9iaWxlIiwianRpIjoiYWJjZGVmZzEyMzQ1NiIsInVzZXJfaWQiOjgsImlhdCI6MTU3NTM2NjA0MiwiZXhwIjoxNTc1MzY2MDcyfQ.GbTTze9myU-8W26hRxkfXxZJuYlft2jywejFGqHNx9g")
     $axios.onRequest(config => {
         // console.log(config)
         // console.log('Making request to ' + config.url)

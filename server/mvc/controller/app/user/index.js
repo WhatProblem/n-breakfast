@@ -30,9 +30,14 @@ const user = {
             ctx.body = JSON.stringify({ code: 500, msg: err })
         })
 
-        if (dbData) {
+        let sqlUser = sql.getUserId()
+        let dbDataUser = await db.query(sqlUser).catch(err => {
+            ctx.body = JSON.stringify({ code: 500, msg: err })
+        })
+
+        if (dbData&&dbDataUser) {
             let { iss, sub, aud, jti } = config
-            let token = JWT.sign({ iss, sub, aud, jti }, config.secret, { expiresIn: config.expiresIn })
+            let token = JWT.sign({ iss, sub, aud, jti, user_id: dbDataUser[0]['user_id'] }, config.secret, { expiresIn: config.expiresIn })
             ctx.body = JSON.stringify({ code: 200, msg: '注册成功', token })
         }
     },
@@ -47,7 +52,7 @@ const user = {
 
         if (dbData[0]['user_hash'] === userHash) {
             let { iss, sub, aud, jti } = config
-            let token = JWT.sign({ iss, sub, aud, jti }, config.secret, { expiresIn: config.expiresIn })
+            let token = JWT.sign({ iss, sub, aud, jti, user_id: dbData[0]['user_id'] }, config.secret, { expiresIn: config.expiresIn })
             ctx.body = JSON.stringify({ code: 200, msg: '登录成功', token })
             return
         }

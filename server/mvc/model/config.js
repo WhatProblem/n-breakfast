@@ -19,7 +19,7 @@ module.exports = {
 
     secret: crypto.createHash('md5').update(JSON.stringify({project: 'breakfast_shop', public: '2019-12-01'})).digest('hex'),
     iss: 'ws',
-    exp: 60,
+    exp: 600,
     sub: 'shop_app',
     aud: 'mobile',
     nbf: '2019-12-01',

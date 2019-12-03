@@ -3,6 +3,8 @@ const banner = require('../controller/app/banner')
 const sort = require('../controller/app/sort')
 const discount = require('../controller/app/discount')
 const user = require('../controller/app/user')
+const goods = require('../controller/app/goods')
+const fav = require('../controller/app/fav')
 
 /**
  * 获取banner列表
@@ -52,6 +54,22 @@ router.post('/app/register', user.register)
  */
 router.post('/app/login', user.login)
 
+/* 测试 */
 router.post('/app/testToken', user.testToken)
+
+/**
+ * 商品详情
+ * @param {id} 商品id
+ * @returns {code, msg, data}
+ */
+router.get('/app/goodsDetail', goods.goodsDetail)
+
+/**
+ * 添加收藏
+ * @param {id} 商品id
+ * @param {status} int 1: 收藏 2: 取消
+ * @returns {code,msg}
+ */
+router.post('/app/addOrDelFav', fav.addOrDelFav)
 
 module.exports = router

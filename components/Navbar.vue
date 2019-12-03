@@ -24,9 +24,9 @@
           <el-menu-item index="1-6" @click="navTo('/userInfo/couponList')">用户卡券</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
-      <el-menu-item index="2">
+      <el-menu-item index="2" @click="navTo('/myTest')">
         <i class="el-icon-menu iconcolor"></i>
-        <span slot="title">导航二</span>
+        <span slot="title">我的测试部分</span>
       </el-menu-item>
       <el-menu-item index="3" disabled>
         <i class="el-icon-document iconcolor"></i>
