@@ -30,7 +30,7 @@ const sql = {
                 from goods_table inner join sort_table on goods_table.sort_id=sort_table.sort_id
                 left join banner_table on goods_table.id=banner_table.id
                 left join discount_table on discount_table.id=goods_table.id
-                where goods_name like '%${obj.findName}%' or sort_name like '%${obj.findName}%' limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
+                where goods_name like '%${obj.findName}%' or sort_name like '%${obj.findName}%' order by goods_table.id desc limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
     },
     updateGoods(obj) {
         return `update goods_table set sort_id=${obj.sortId}, goods_name='${obj.goodsName}', price=${obj.price}, pic_url='${obj.picUrl}', introduce='${obj.introduce}' where id=${obj.id}`
@@ -65,7 +65,42 @@ const sql = {
     },
     deleteDiscount(obj) {
         return `delete from discount_table where discount_id=${obj.discountId}`
-    }
+    },
+    /* 查询用户列表 */
+    getAllUser(obj) {
+        return `select count(*) as total from user_table
+                where user_name like '%${obj.userName}%'`
+    },
+    getUserList(obj) {
+        return `select user_table.user_id, user_table.user_name, user_table.avatar, user_table.province, user_table.city, user_table.country, user_table.addr_detail from user_table
+                where user_name like '%${obj.userName}%' order by user_table.user_id asc limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
+    },
+    /* 查询收藏列表 */
+    getAllFav(obj) {
+        return `select count(*) as total from fav_table
+                inner join user_table on user_table.user_id=fav_table.user_id
+                left join goods_table on fav_table.id=goods_table.id
+                where user_table.user_name like '%${obj.searchKey}%' or goods_table.goods_name like '%${obj.searchKey}%'`
+    },
+    getFavList(obj) {
+        return `select user_table.user_id, user_table.user_name, fav_table.fav_id, goods_table.goods_name, goods_table.price from fav_table
+                inner join user_table on user_table.user_id=fav_table.user_id
+                left join goods_table on fav_table.id=goods_table.id
+                where user_table.user_name like '%${obj.searchKey}%' or goods_table.goods_name like '%${obj.searchKey}%' order by fav_table.fav_id asc limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
+    },
+    /* 查询购物车列表 */
+    getAllCart(obj) {
+        return `select count(*) as total from cart_table
+                inner join user_table on user_table.user_id=cart_table.user_id
+                left join goods_table on cart_table.id=goods_table.id
+                where user_table.user_name like '%${obj.searchKey}%' or goods_table.goods_name like '%${obj.searchKey}%'`
+    },
+    getCartList(obj) {
+        return `select user_table.user_id, user_table.user_name, cart_table.cart_id, goods_table.goods_name, goods_table.price, cart_table.goods_num from cart_table
+                inner join user_table on user_table.user_id=cart_table.user_id
+                left join goods_table on cart_table.id=goods_table.id
+                where user_table.user_name like '%${obj.searchKey}%' or goods_table.goods_name like '%${obj.searchKey}%' order by cart_table.cart_id asc limit ${(obj.pageNum-1)*obj.pageSize}, ${obj.pageSize}`
+    },
 }
 
 module.exports = sql

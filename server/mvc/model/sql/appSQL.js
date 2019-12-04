@@ -65,6 +65,27 @@ const sql = {
                 where goods_table.id=${obj.id}`
     },
 
+    /* 模糊查询 */
+    searchFor(obj) {
+        return `select goods_table.id, goods_table.sort_id, goods_name, price, pic_url, introduce, sort_table.sort_name
+                from goods_table inner join sort_table on goods_table.sort_id=sort_table.sort_id
+                where goods_name like '%${obj.goodsName}%'`
+    },
+
+    /* 热销新品 - 取最新创建的10条 */
+    getHotSale() {
+        return `select goods_table.id, goods_table.sort_id, goods_name, price, pic_url, introduce, sort_table.sort_name
+                from goods_table inner join sort_table on goods_table.sort_id=sort_table.sort_id
+                order by goods_table.id desc limit 0,10`
+    },
+
+    /* 推荐商品 - 取最早创建的10条 */
+    getHistory() {
+        return `select goods_table.id, goods_table.sort_id, goods_name, price, pic_url, introduce, sort_table.sort_name
+                from goods_table inner join sort_table on goods_table.sort_id=sort_table.sort_id
+                order by goods_table.id asc limit 0,10`
+    },
+
     /* 获取最新注册用户的user_id */
     getUserId() {
         return `select max(user_id) as user_id from user_table `
@@ -78,6 +99,32 @@ const sql = {
     /* 删除收藏 */
     deleteFav(obj) {
         return `delete from fav_table where id=${obj.id} and user_id=${obj.userId}`
+    },
+
+    /* 先查询数据是否已经存在 */
+    getCart(obj) {
+        return `select cart_id from cart_table where user_id=${obj.userId} and id=${obj.id} limit 1`
+    },
+
+    /* 如果数据存在就更新 */
+    updateCart(obj) {
+        return `update cart_table set goods_num=${obj.goodsNum} where id=${obj.id} and user_id=${obj.userId}`
+    },
+
+    /* 添加到购物车 */
+    addCart(obj) {
+        // return `insert into cart_table (id,user_id,goods_num)  values (${obj.id}, ${obj.userId}, ${obj.goodsNum}) on  DUPLICATE key update goods_num=values(goods_num)`
+        return `insert into cart_table(id, user_id, goods_num) values (${obj.id}, ${obj.userId}, ${obj.goodsNum})`
+    },
+
+    /* 从购物车删除 */
+    deleteCart(obj) {
+        return `delete from cart_table where id=${obj.id} and user_id=${obj.userId}`
+    },
+    
+    /* 清空购物车当前用户所有数据 */
+    clearCart(obj) {
+        return `delete from cart_table where user_id=${obj.userId}`
     }
 }
 

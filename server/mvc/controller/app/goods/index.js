@@ -11,7 +11,6 @@ const goods = {
         await JWT.verify(token, config.secret, async (err, data) => {
             let sqls = ''
             if (err) {
-                console.log(123)
                 // 未登录
                 sqls = sql.goodsDetail(ctx.request.query, false)
             } else {
@@ -21,11 +20,45 @@ const goods = {
             let dbData = await db.query(sqls).catch(err => {
                 ctx.body = JSON.stringify({ code: 500, msg: err })
             })
-    
+
             if (dbData) {
                 ctx.body = JSON.stringify({ code: 200, msg: 'success', data: dbData[0] })
             }
         })
+    },
+
+    /* 查询商品 */
+    async searchFor(ctx) {
+        let sqls = sql.searchFor(ctx.request.query)
+        let dbData = await db.query(sqls).catch(err => {
+            ctx.body = JSON.stringify({ code: 500, msg: err })
+        })
+
+        if (dbData) {
+            ctx.body = JSON.stringify({ code: 200, msg: 'success', data: dbData })
+        }
+    },
+
+    async getHotSale(ctx) {
+        let sqls = sql.getHotSale()
+        let dbData = await db.query(sqls).catch(err => {
+            ctx.body = JSON.stringify({ code: 500, msg: err })
+        })
+
+        if (dbData) {
+            ctx.body = JSON.stringify({ code: 200, msg: 'success', data: dbData })
+        }
+    },
+
+    async getHistory(ctx) {
+        let sqls = sql.getHistory()
+        let dbData = await db.query(sqls).catch(err => {
+            ctx.body = JSON.stringify({ code: 500, msg: err })
+        })
+
+        if (dbData) {
+            ctx.body = JSON.stringify({ code: 200, msg: 'success', data: dbData })
+        }
     }
 }
 

@@ -310,7 +310,7 @@ export default {
               resp.sortName = item.sort_name
             }
           })
-          this.goodsList.push(resp)
+          this.goodsList.unshift(resp)
           this.form = {
             goodsName: "",
             price: null,
@@ -318,6 +318,7 @@ export default {
             sortId: "",
             introduce: ""
           };
+          this.pages.total = this.pages.total + 1
           return;
         }
         this.$message({ message: "新增商品失败", type: "error" });

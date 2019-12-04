@@ -77,7 +77,25 @@ router.post('/app/addOrDelFav', fav.addOrDelFav)
  * 添加到购物车
  * @param {id} 商品id
  * @param {goodsNum} 商品数量
+ * @param {status} int 1: 添加 2: 删除当前选中 3：清空当前用户购物车
+ * @returns {code,msg}
  */
 router.post('/app/addOrDelCart', cart.addOrDelCart)
+
+/**
+ * 查询商品--模糊查询
+ * @param {goodsName} 商品名称
+ */
+router.get('/app/searchFor', goods.searchFor)
+
+/**
+ * 热销新品
+ */
+router.get('/app/getHotSale', goods.getHotSale)
+
+/**
+ * 推荐商品
+ */
+router.get('/app/getHistory', goods.getHistory)
 
 module.exports = router

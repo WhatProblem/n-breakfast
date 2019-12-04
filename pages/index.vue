@@ -2,9 +2,14 @@
   <div class="container">
     <div class="main">
       <el-container>
-        <el-header height="50px">
-          <div class="header">
-            <div class="search-component">
+            <!-- <span>服务端渲染数据：{{title}}</span> -->
+        <el-aside width="236px">
+          <Navbar/>
+        </el-aside>
+        <el-container>
+          <el-header height="90px">
+            <div class="header">
+              <div class="search-component">
               <el-input class="search"></el-input><span class="el-icon-search"></span>
             </div>
             <div class="proflie">
@@ -21,14 +26,7 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div>
-            <!-- <span>服务端渲染数据：{{title}}</span> -->
-          </div>
-        </el-header>
-        <el-container>
-          <el-aside width="236px">
-            <Navbar/>
-          </el-aside>
-          <el-main>
+            </div>
             <div class="bread">
               <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -37,6 +35,8 @@
                 <el-breadcrumb-item>活动详情</el-breadcrumb-item>
               </el-breadcrumb>
             </div>
+          </el-header>
+          <el-main>
             <nuxt-child></nuxt-child>
           </el-main>
         </el-container>
@@ -87,15 +87,13 @@ export default {
   background-color: $header-bg;
   color: $header-color;
   text-align: center;
-  padding: 0;
+  box-shadow: 0px 2px 2px $shaow-color;
+  margin-bottom: 2px;
   .header {
     position: relative;
     width: 100%;
-    height: 50px;
+    height: 60px;
     text-align: right;
-     box-shadow: 1px 2px 6px $shaow-color;
-    -webkit-box-shadow: 1px 2px 6px $shaow-color;
-    -moz-box-shadow: 1px 2px 6px $shaow-color;
   }
   .proflie{
     width: 74px;
@@ -143,12 +141,10 @@ export default {
   background-color: $sidebar-bg;
   color: $sidebar-color;
   text-align: center;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-bottom: 10px;
-  box-shadow: 1px 5px 6px $shaow-navcolor;
-  -webkit-box-shadow: 1px 5px 6px $shaow-navcolor;
-  -moz-box-shadow: 1px 5px 6px $shaow-navcolor;
+  // margin-top: 10px;
+  // margin-left: 10px;
+  // margin-bottom: 10px;
+  // box-shadow: 0px 5px 6px $shaow-navcolor;
 }
 
 .el-main {

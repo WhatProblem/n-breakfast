@@ -3,7 +3,9 @@ const router = require('./appRoute')
 const goods = require('../controller/admin/goods')
 const banner = require('../controller/admin/banner')
 const discount = require('../controller/admin/discount')
-
+const user = require('../controller/admin/user')
+const fav = require('../controller/admin/fav')
+const cart = require('../controller/admin/cart')
 
 router.get('/getTest', goods.getTest)
 router.get('/getHome', goods.getHome)
@@ -99,5 +101,32 @@ router.del('/deleteDiscount', discount.deleteDiscount)
  * @param {endTime}
  */
 router.put('/updateDiscount', discount.updateDiscount)
+
+/**
+ * 查询用户列表
+ * @param {userName} 用户名
+ * @param {pageNum}
+ * @param {pageSize}
+ * @returns {code,msg,data}
+ */
+router.get('/getUserList', user.getUserList)
+
+/**
+ * 查询收藏列表
+ * @param {searchKey} - 模糊插叙关键字用户名或商品名称
+ * @param {pageNum}
+ * @param {pageSize}
+ * @returns {code,msg,data}
+ */
+router.get('/getFavList', fav.getFavList)
+
+/**
+ * 购物车列表
+ * @param {searchKey} - 模糊插叙关键字用户名或商品名称
+ * @param {pageNum}
+ * @param {pageSize}
+ * @returns {code,msg,data}
+ */
+router.get('/getCartList', cart.getCartList)
 
 module.exports = router
