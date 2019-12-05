@@ -157,5 +157,6 @@ export default {
         font-size: 14px;
         text-align: right;
         margin-top: 10px;
+        cursor: pointer;
     }
 </style>
