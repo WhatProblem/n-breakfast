@@ -24,12 +24,28 @@ const sql = {
     },
 
     /* 查询对应分类下的商品列表 */
-    getSortGoodsList(obj) {
-        return `select goods_table.id, goods_table.sort_id, goods_name, price, pic_url, introduce,
-                discount_table.discount_id,discount_table.id,discount_table.discount_sum,discount_table.start_time,discount_table.end_time
-                from goods_table left join discount_table on discount_table.id=goods_table.id where goods_table.sort_id=${obj.sortId} limit ${(obj.pageNum - 1) * obj.pageSize}, ${obj.pageSize}`
-    },
+    // getSortGoodsList(obj) {
+    //     return `select goods_table.id, goods_table.sort_id, goods_name, price, pic_url, introduce,
+    //             discount_table.discount_id,discount_table.discount_sum,discount_table.start_time,discount_table.end_time,
+    //             avg(rating_table.score) as score from goods_table
+    //             left join rating_table on goods_table.id=rating_table.id
+    //             left join discount_table on discount_table.id=goods_table.id
+    //             where goods_table.sort_id=${obj.sortId} limit ${(obj.pageNum - 1) * obj.pageSize}, ${obj.pageSize}`
+    // },
 
+    getSortGoodsList(obj) {
+        // SELECT go.*,r.score,r.rating FROM ( SELECT so.*,d.discount_sum,d.start_time,d.end_time FROM ( SELECT s.sort_name,g.* FROM goods_table g LEFT JOIN sort_table s ON g.sort_id = s.sort_id ) so LEFT JOIN discount_table d ON d.id = so.id ) go LEFT JOIN rating_table r ON go.id = r.id WHERE go.sort_id=9
+        return `select allData.id, allData.sort_id, allData.goods_name, allData.price, allData.pic_url, allData.introduce, allData.sort_name, 
+                allData.discount_id,allData.discount_sum,allData.start_time,allData.end_time,rate.score
+                from (SELECT goods.id, goods.sort_id, goods.goods_name, goods.price, goods.pic_url, goods.introduce, goods.sort_name, 
+                discount_table.discount_id,discount_table.discount_sum,discount_table.start_time,discount_table.end_time
+                FROM ( SELECT goods_table.id, goods_table.sort_id, goods_name, price, pic_url, introduce, sort_table.sort_name FROM goods_table INNER JOIN sort_table ON goods_table.sort_id = sort_table.sort_id ) AS goods
+                left join discount_table on discount_table.id=goods.id) as allData left join 
+                (SELECT rating_table.id, AVG(rating_table.score) as score from rating_table GROUP BY id) as rate
+                on rate.id=allData.id
+                where allData.sort_id=${obj.sortId} limit ${(obj.pageNum - 1) * obj.pageSize}, ${obj.pageSize}`
+            },
+            
     /* 插入注册用户数据 */
     register(obj) {
         return `insert into user_table (user_name, user_hash, avatar, province, city, country, addr_detail) 
