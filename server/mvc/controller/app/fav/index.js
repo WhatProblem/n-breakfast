@@ -8,7 +8,7 @@ const fav = {
     async addOrDelFav(ctx) {
         let token = ctx.request.header.authorization
         if (!token) {
-            ctx.body = JSON.stringify({ code: 11001, msg: '请先登录', data: err })
+            ctx.body = JSON.stringify({ code: 11001, msg: '请先登录' })
             return
         }
         await JWT.verify(token, config.secret, async (err, data) => {
