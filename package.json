@@ -19,7 +19,7 @@
     "koa-bodyparser": "^4.2.1",
     "koa-mysql": "^1.0.3",
     "koa-router": "^7.4.0",
-    "nuxt": "^2.10.2"
+    "nuxt": "^2.15.8"
   },
   "devDependencies": {
     "node-sass": "^4.13.0",
